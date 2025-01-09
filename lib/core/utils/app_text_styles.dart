@@ -30,6 +30,10 @@ abstract class TextStyles {
     fontWeight: FontWeight.w600,
     fontSize: 16,
   );
+  static const TextStyle bold23 = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontSize: 23,
+  );
 
   static const TextStyle bold28 = TextStyle(
     fontWeight: FontWeight.bold,
