@@ -28,15 +28,13 @@ class OnBoardingPageview extends StatelessWidget {
             ],
           ),
         ),
-        PageviewItem(
-          isVisible:
-              (pageController.hasClients ? pageController.page!.round() : 0) !=
-                  0,
+        const PageviewItem(
+          isVisible: false,
           image: Assets.imagesPageViewItem2Image,
           backgroundImage: Assets.imagesPageViewItem2BackgroundImage,
           subtitle:
               'نقدم لك أفضل الفواكه المختارة بعناية. اطلع على التفاصيل والصور والتقييمات لتتأكد من اختيار الفاكهة المثالية',
-          title: const Text(
+          title: Text(
             'ابحث وتسوق',
             textAlign: TextAlign.center,
             style: TextStyle(
