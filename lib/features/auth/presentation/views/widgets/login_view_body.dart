@@ -5,7 +5,8 @@ import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/core/widgets/custom_text_field.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/dont_have_an_account_widget.dart';
 import 'package:fruits_hub/features/auth/presentation/views/widgets/or_divider.dart';
-
+import 'package:fruits_hub/features/auth/presentation/views/widgets/social_login_button.dart';
+import '../../../../../core/utils/app_images.dart';
 import '../../../../../core/utils/app_text_styles.dart';
 
 class LoginViewBody extends StatelessWidget {
@@ -59,6 +60,27 @@ class LoginViewBody extends StatelessWidget {
               height: 33,
             ),
             const OrDivider(),
+            const SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+                image: Assets.imagesGoogleIcon,
+                title: 'تسجيل بواسطة جوجل',
+                onPressed: () {}),
+            const SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+                image: Assets.imagesAppleIcon,
+                title: 'تسجيل بواسطة أبل',
+                onPressed: () {}),
+            const SizedBox(
+              height: 16,
+            ),
+            SocialLoginButton(
+                image: Assets.imagesFacebookIcon,
+                title: 'تسجيل بواسطة فيسبوك',
+                onPressed: () {})
           ],
         ),
       ),
