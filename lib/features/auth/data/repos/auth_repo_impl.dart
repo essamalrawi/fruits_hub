@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:fruits_hub/core/errors/custom_exceptions.dart';
 import 'package:fruits_hub/core/errors/faluires.dart';
@@ -12,10 +14,6 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.firebaseAuthService});
 
   @override
-  Future<UserEntite> login({required String email, required String password}) {
-    throw UnimplementedError();
-  }
-
   @override
   Future<Either<Faluires, UserEntite>> signUp(
       {required String email,
@@ -29,6 +27,44 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomExceptions catch (e) {
       return left(ServerFaluire(e.message));
     } catch (e) {
+      log('Exception in signup: ${e.toString()}');
+      return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
+    }
+  }
+
+  @override
+  Future<Either<Faluires, UserEntite>> signIn(
+      {required String email, required String password}) async {
+    try {
+      var user =
+          await firebaseAuthService.login(email: email, password: password);
+      return Right(UserModel.factoryFirebaseUser(user));
+    } on CustomExceptions catch (e) {
+      return left(ServerFaluire(e.message));
+    } catch (e) {
+      log('Exception in signup: ${e.toString()}');
+      return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
+    }
+  }
+
+  @override
+  Future<Either<Faluires, UserEntite>> signInWithGoogle() async {
+    try {
+      var user = await firebaseAuthService.signInWithGoogle();
+      return Right(UserModel.factoryFirebaseUser(user));
+    } catch (e) {
+      log('Exception in signup: ${e.toString()}');
+      return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
+    }
+  }
+
+  @override
+  Future<Either<Faluires, UserEntite>> signInWithFacebook() async {
+    try {
+      var user = await firebaseAuthService.signInWithFacebook();
+      return Right(UserModel.factoryFirebaseUser(user));
+    } catch (e) {
+      log('Exception in signup: ${e.toString()}');
       return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
     }
   }

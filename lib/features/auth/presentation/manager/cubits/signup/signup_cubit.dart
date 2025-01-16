@@ -15,6 +15,7 @@ class SignupCubit extends Cubit<SignupState> {
       {required String email,
       required String password,
       required String name}) async {
+    emit(SignupLoading());
     final user =
         await authRepo.signUp(email: email, password: password, name: name);
 

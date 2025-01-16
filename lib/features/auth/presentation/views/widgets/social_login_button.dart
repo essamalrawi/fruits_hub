@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:svg_flutter/svg.dart';
-
 import '../../../../../core/utils/app_text_styles.dart';
 
-class SocialLoginButton extends StatelessWidget {
-  const SocialLoginButton(
+class SocialSigninButton extends StatelessWidget {
+  const SocialSigninButton(
       {super.key,
       required this.image,
       required this.title,
@@ -25,9 +24,7 @@ class SocialLoginButton extends StatelessWidget {
                         0xFFDCDEDE,
                       )),
                   borderRadius: BorderRadius.circular(16))),
-          onPressed: () {
-            onPressed;
-          },
+          onPressed: onPressed,
           child: ListTile(
             visualDensity:
                 const VisualDensity(vertical: VisualDensity.minimumDensity),
