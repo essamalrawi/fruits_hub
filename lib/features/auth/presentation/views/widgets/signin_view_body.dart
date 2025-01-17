@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fruits_hub/constants.dart';
@@ -71,7 +73,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                       formKey.currentState!.save();
                       context
                           .read<SigninCubit>()
-                          .logIn(email: email, password: password);
+                          .signIn(email: email, password: password);
                     } else {
                       setState(() {
                         autovalidateMode = AutovalidateMode.always;
@@ -99,17 +101,25 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               const SizedBox(
                 height: 16,
               ),
-              SocialSigninButton(
-                  image: Assets.imagesAppleIcon,
-                  title: 'تسجيل بواسطة أبل',
-                  onPressed: () {}),
-              const SizedBox(
-                height: 16,
-              ),
+              Platform.isIOS
+                  ? Column(
+                      children: [
+                        SocialSigninButton(
+                            image: Assets.imagesAppleIcon,
+                            title: 'تسجيل بواسطة أبل',
+                            onPressed: () {}),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    )
+                  : const SizedBox(),
               SocialSigninButton(
                   image: Assets.imagesFacebookIcon,
                   title: 'تسجيل بواسطة فيسبوك',
-                  onPressed: () {})
+                  onPressed: () {
+                    context.read<SigninCubit>().signInWithFacebook();
+                  })
             ],
           ),
         ),

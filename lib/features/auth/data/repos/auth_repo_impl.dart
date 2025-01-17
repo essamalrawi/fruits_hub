@@ -1,6 +1,6 @@
 import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/core/errors/custom_exceptions.dart';
 import 'package:fruits_hub/core/errors/faluires.dart';
 import 'package:fruits_hub/core/services/firebase_auth_service.dart';
@@ -14,7 +14,6 @@ class AuthRepoImpl extends AuthRepo {
   AuthRepoImpl({required this.firebaseAuthService});
 
   @override
-  @override
   Future<Either<Faluires, UserEntite>> signUp(
       {required String email,
       required String password,
@@ -23,7 +22,7 @@ class AuthRepoImpl extends AuthRepo {
       var user = await firebaseAuthService.signup(
           email: email, password: password, name: name);
 
-      return Right(UserModel.factoryFirebaseUser(user));
+      return Right(UserModel.fromFirebaseUser(user));
     } on CustomExceptions catch (e) {
       return left(ServerFaluire(e.message));
     } catch (e) {
@@ -38,7 +37,7 @@ class AuthRepoImpl extends AuthRepo {
     try {
       var user =
           await firebaseAuthService.login(email: email, password: password);
-      return Right(UserModel.factoryFirebaseUser(user));
+      return Right(UserModel.fromFirebaseUser(user));
     } on CustomExceptions catch (e) {
       return left(ServerFaluire(e.message));
     } catch (e) {
@@ -51,7 +50,21 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Faluires, UserEntite>> signInWithGoogle() async {
     try {
       var user = await firebaseAuthService.signInWithGoogle();
-      return Right(UserModel.factoryFirebaseUser(user));
+      return Right(UserModel.fromFirebaseUser(user));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        return left(
+          ServerFaluire(
+            'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.',
+          ),
+        );
+      } else {
+        return left(
+          ServerFaluire(
+            'حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+          ),
+        );
+      }
     } catch (e) {
       log('Exception in signup: ${e.toString()}');
       return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
@@ -62,10 +75,32 @@ class AuthRepoImpl extends AuthRepo {
   Future<Either<Faluires, UserEntite>> signInWithFacebook() async {
     try {
       var user = await firebaseAuthService.signInWithFacebook();
-      return Right(UserModel.factoryFirebaseUser(user));
+      return right(
+        UserModel.fromFirebaseUser(user),
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'account-exists-with-different-credential') {
+        return left(
+          ServerFaluire(
+            'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.',
+          ),
+        );
+      } else {
+        return left(
+          ServerFaluire(
+            'حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+          ),
+        );
+      }
     } catch (e) {
-      log('Exception in signup: ${e.toString()}');
-      return Left(ServerFaluire("لقد حدث خطأ ما، الرجاء المحاولة مرة اخرى."));
+      log(
+        'Exception in AuthRepoImpl.createUserWithEmailAndPassword: ${e.toString()}',
+      );
+      return left(
+        ServerFaluire(
+          'حدث خطأ ما. الرجاء المحاولة مرة اخرى.',
+        ),
+      );
     }
   }
 }

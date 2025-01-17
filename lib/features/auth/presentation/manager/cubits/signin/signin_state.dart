@@ -1,18 +1,18 @@
 part of 'signin_cubit.dart';
 
 @immutable
-sealed class LoginState {}
+sealed class SigninState {}
 
-final class LoginInitial extends LoginState {}
+final class SigninInitial extends SigninState {}
 
-final class LoginLoading extends LoginState {}
+final class SigninLoading extends SigninState {}
 
-final class LoginSuccuess extends LoginState {
+final class SigninSuccuess extends SigninState {
   final UserEntite userModel;
-  LoginSuccuess({required this.userModel});
+  SigninSuccuess({required this.userModel});
 }
 
-final class LoginFaluire extends LoginState {
+final class SigninFaluire extends SigninState {
   final String message;
-  LoginFaluire({required this.message});
+  SigninFaluire({required this.message});
 }

@@ -52,6 +52,9 @@ class FirebaseAuthService {
             message: 'الرقم السري او البريد الالكتروني غير صحيح.');
       } else if (e.code == 'network-request-failed') {
         throw CustomExceptions(message: 'تاكد من اتصالك بالانترنت.');
+      } else if (e.code == 'account-exists-with-different-credential') {
+        throw CustomExceptions(
+            message: 'لقد قمت بالتسجيل مسبقاً. الرجاء تسجيل الدخول.');
       } else {
         log('Exception in signup firebase auth service: ${e.toString()}');
 
@@ -82,10 +85,9 @@ class FirebaseAuthService {
 
   Future<User> signInWithFacebook() async {
     final LoginResult loginResult = await FacebookAuth.instance.login();
+
     final OAuthCredential facebookAuthCredential =
-        FacebookAuthProvider.credential(
-      loginResult.accessToken!.tokenString,
-    );
+        FacebookAuthProvider.credential(loginResult.accessToken!.tokenString);
 
     return (await FirebaseAuth.instance
             .signInWithCredential(facebookAuthCredential))

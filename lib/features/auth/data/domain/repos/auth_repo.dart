@@ -5,6 +5,7 @@ import '../../../../../core/errors/faluires.dart';
 abstract class AuthRepo {
   Future<Either<Faluires, UserEntite>> signUp(
       {required String email, required String password, required String name});
+
   Future<Either<Faluires, UserEntite>> signIn(
       {required String email, required String password});
 
