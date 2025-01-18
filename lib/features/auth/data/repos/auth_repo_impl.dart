@@ -3,15 +3,19 @@ import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_hub/core/errors/custom_exceptions.dart';
 import 'package:fruits_hub/core/errors/faluires.dart';
+import 'package:fruits_hub/core/services/data_service.dart';
 import 'package:fruits_hub/core/services/firebase_auth_service.dart';
 import 'package:fruits_hub/features/auth/data/domain/entites/user_entite.dart';
 import 'package:fruits_hub/features/auth/data/domain/repos/auth_repo.dart';
 import 'package:fruits_hub/features/auth/data/models/user_model.dart';
 
+import '../../../../core/utils/backend_endpoints.dart';
+
 class AuthRepoImpl extends AuthRepo {
   final FirebaseAuthService firebaseAuthService;
-
-  AuthRepoImpl({required this.firebaseAuthService});
+  final DatabaseService databaseService;
+  AuthRepoImpl(
+      {required this.databaseService, required this.firebaseAuthService});
 
   @override
   Future<Either<Faluires, UserEntite>> signUp(
@@ -22,7 +26,9 @@ class AuthRepoImpl extends AuthRepo {
       var user = await firebaseAuthService.signup(
           email: email, password: password, name: name);
 
-      return Right(UserModel.fromFirebaseUser(user));
+      UserEntite userEntite = UserModel.fromFirebaseUser(user);
+      await addUserData(user: userEntite);
+      return Right(userEntite);
     } on CustomExceptions catch (e) {
       return left(ServerFaluire(e.message));
     } catch (e) {
@@ -102,5 +108,13 @@ class AuthRepoImpl extends AuthRepo {
         ),
       );
     }
+  }
+
+  @override
+  Future addUserData({
+    required UserEntite user,
+  }) async {
+    await databaseService.addData(
+        path: BackendEndpoints.addUserData, data: user.toMap());
   }
 }
