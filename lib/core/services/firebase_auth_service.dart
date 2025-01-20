@@ -6,7 +6,11 @@ import 'package:fruits_hub/core/errors/custom_exceptions.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
-  Future<User> signup(
+  Future deleteUser() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+  }
+
+  Future<User> signUp(
       {required String email,
       required String password,
       required String name}) async {
@@ -38,10 +42,11 @@ class FirebaseAuthService {
     }
   }
 
-  Future<User> login({required String email, required String password}) async {
+  Future<User> signIn({required String email, required String password}) async {
     try {
       final credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
       return credential.user!;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
