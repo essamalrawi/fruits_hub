@@ -46,6 +46,10 @@ class Assets {
   /// assets/images/plant.svg
   static const String imagesPlant = "assets/images/plant.svg";
 
+  /// Assets for imagesProfilePic
+  /// assets/images/profile_pic.svg
+  static const String imagesProfilePic = "assets/images/profile_pic.svg";
+
   /// Assets for imagesSplashBottom
   /// assets/images/splash_bottom.svg
   static const String imagesSplashBottom = "assets/images/splash_bottom.svg";
