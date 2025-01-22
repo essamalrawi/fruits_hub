@@ -4,6 +4,7 @@ import 'package:fruits_hub/features/on_boarding/presentation/views/on_boarding_v
 import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 
 import '../../features/auth/presentation/views/signup_view.dart';
+import '../../features/best_selling_fruits/presentation/views/best_selling_fruits_view.dart';
 import '../../features/home/presentation/views/home_view.dart';
 
 Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -18,6 +19,9 @@ Route<dynamic> onGenerateRoute(RouteSettings settings) {
       return MaterialPageRoute(builder: (context) => const SignupView());
     case HomeView.routeName:
       return MaterialPageRoute(builder: (context) => const HomeView());
+    case BestSellingFruitsView.routeName:
+      return MaterialPageRoute(
+          builder: (context) => const BestSellingFruitsView());
     default:
       return MaterialPageRoute(builder: (context) => const Scaffold());
   }

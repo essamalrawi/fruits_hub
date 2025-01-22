@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:svg_flutter/svg.dart';
+import 'package:fruits_hub/features/home/presentation/views/widgets/navigation_bar_item.dart';
+import '../../../domain/entites/bottom_navigation_bar_entity.dart';
 
-import '../../../../../core/utils/app_images.dart';
-
-class CustomButtonNavigationBar extends StatelessWidget {
+class CustomButtonNavigationBar extends StatefulWidget {
   const CustomButtonNavigationBar({super.key});
 
+  @override
+  State<CustomButtonNavigationBar> createState() =>
+      _CustomButtonNavigationBarState();
+}
+
+class _CustomButtonNavigationBarState extends State<CustomButtonNavigationBar> {
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,38 +34,26 @@ class CustomButtonNavigationBar extends StatelessWidget {
           )
         ],
       ),
-      child: const InActiveItem(image: Assets.imagesHome),
+      child: Row(
+        children: bottomNavigationBarItems.asMap().entries.map((e) {
+          var index = e.key;
+          var entity = e.value;
+          return Expanded(
+            flex: index == selectedIndex ? 3 : 2,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  selectedIndex = index;
+                });
+              },
+              child: NavigationBarItem(
+                isSelected: selectedIndex == index,
+                entity: entity,
+              ),
+            ),
+          );
+        }).toList(),
+      ),
     );
-  }
-}
-
-class InActiveItem extends StatelessWidget {
-  const InActiveItem({super.key, required this.image});
-
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(image);
-  }
-}
-
-class NavigationBarItem extends StatelessWidget {
-  const NavigationBarItem({super.key, required this.isSelected});
-  final bool isSelected;
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox();
-
-    // return isSelected ? ActiveItem(image: ,) : InActiveItem(image: ,);
-  }
-}
-
-class ActiveItem extends StatelessWidget {
-  const ActiveItem({super.key, required this.image});
-
-  final String image;
-  @override
-  Widget build(BuildContext context) {
-    return SvgPicture.asset(image);
   }
 }
