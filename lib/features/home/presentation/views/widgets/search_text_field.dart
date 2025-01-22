@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:svg_flutter/svg.dart';
-
 import '../../../../../core/utils/app_text_styles.dart';
 
 class SearchTextField extends StatelessWidget {
