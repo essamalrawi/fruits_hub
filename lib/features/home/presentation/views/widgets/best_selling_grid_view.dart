@@ -7,6 +7,7 @@ class BestSellingGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverGrid.builder(
+        itemCount: 8,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           mainAxisSpacing: 8,
           crossAxisSpacing: 16,

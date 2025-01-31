@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fruits_hub/constants.dart';
 import 'package:fruits_hub/core/errors/custom_exceptions.dart';
 import 'package:fruits_hub/core/errors/faluires.dart';
 import 'package:fruits_hub/core/services/data_service.dart';
@@ -8,6 +10,7 @@ import 'package:fruits_hub/core/services/firebase_auth_service.dart';
 import 'package:fruits_hub/features/auth/data/domain/entites/user_entite.dart';
 import 'package:fruits_hub/features/auth/data/domain/repos/auth_repo.dart';
 import 'package:fruits_hub/features/auth/data/models/user_model.dart';
+import '../../../../core/services/shared_preferences_singleton.dart';
 import '../../../../core/utils/backend_endpoints.dart';
 
 class AuthRepoImpl extends AuthRepo {
@@ -17,7 +20,7 @@ class AuthRepoImpl extends AuthRepo {
       {required this.databaseService, required this.firebaseAuthService});
 
   @override
-  Future<Either<Faluires, UserEntite>> signUp(
+  Future<Either<Failure, UserEntity>> signUp(
       {required String email,
       required String password,
       required String name}) async {
@@ -26,8 +29,8 @@ class AuthRepoImpl extends AuthRepo {
       user = await firebaseAuthService.signUp(
           email: email, password: password, name: name);
 
-      UserEntite userEntite =
-          UserEntite(email: email, name: name, uId: user.uid);
+      UserEntity userEntite =
+          UserEntity(email: email, name: name, uId: user.uid);
       var isDataExists = await databaseService.checkIfDataExists(
           path: BackendEndpoints.addUserData, documentId: user.uid);
 
@@ -56,13 +59,13 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Faluires, UserEntite>> signIn(
+  Future<Either<Failure, UserEntity>> signIn(
       {required String email, required String password}) async {
     try {
       var user =
           await firebaseAuthService.signIn(email: email, password: password);
       var userEntity = await getUserData(uid: user.uid);
-
+      await saveUserData(user: userEntity);
       return Right(userEntity);
     } on CustomExceptions catch (e) {
       return left(ServerFaluire(e.message));
@@ -73,7 +76,7 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Faluires, UserEntite>> signInWithGoogle() async {
+  Future<Either<Failure, UserEntity>> signInWithGoogle() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithGoogle();
@@ -81,11 +84,12 @@ class AuthRepoImpl extends AuthRepo {
       var userModel = UserModel.fromFirebaseUser(user);
       var isDataExists = await databaseService.checkIfDataExists(
           path: BackendEndpoints.addUserData, documentId: user.uid);
-
+      var userEntity = await getUserData(uid: user.uid);
+      await saveUserData(user: userEntity);
       if (isDataExists) {
         await getUserData(uid: user.uid);
       } else {
-        await addUserData(user: userModel);
+        await saveUserData(user: userModel);
       }
 
       return Right(userModel);
@@ -112,18 +116,19 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<Either<Faluires, UserEntite>> signInWithFacebook() async {
+  Future<Either<Failure, UserEntity>> signInWithFacebook() async {
     User? user;
     try {
       user = await firebaseAuthService.signInWithFacebook();
       var userModel = UserModel.fromFirebaseUser(user);
       var isDataExists = await databaseService.checkIfDataExists(
           path: BackendEndpoints.addUserData, documentId: user.uid);
-
+      var userEntity = await getUserData(uid: user.uid);
+      await saveUserData(user: userEntity);
       if (isDataExists) {
         await getUserData(uid: user.uid);
       } else {
-        await addUserData(user: userModel);
+        await saveUserData(user: userModel);
       }
       return Right(userModel);
     } on FirebaseAuthException catch (e) {
@@ -157,18 +162,24 @@ class AuthRepoImpl extends AuthRepo {
 
   @override
   Future addUserData({
-    required UserEntite user,
+    required UserEntity user,
   }) async {
     await databaseService.addData(
         path: BackendEndpoints.addUserData,
-        data: user.toMap(),
+        data: UserModel.fromEntity(user).toMap(),
         documentId: user.uId);
   }
 
   @override
-  Future<UserEntite> getUserData({required String uid}) {
+  Future<UserEntity> getUserData({required String uid}) {
     return databaseService
         .getData(path: BackendEndpoints.gettUserData, uId: uid)
         .then((value) => UserModel.fromJson(value));
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(UserModel.fromEntity(user).toMap());
+    await Prefs.setString(kUserData, jsonData);
   }
 }

@@ -8,7 +8,7 @@ final class SignupInitial extends SignupState {}
 final class SignupLoading extends SignupState {}
 
 final class SignupSuccuess extends SignupState {
-  final UserEntite userModel;
+  final UserEntity userModel;
   SignupSuccuess({required this.userModel});
 }
 
