@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_hub/core/helper_functions/on_generate_route.dart';
+import 'package:fruits_hub/features/splash/presentation/views/splash_view.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,7 +13,8 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text('I am hungry World!'))),
+      onGenerateRoute: onGenerateRoute,
+      initialRoute: SplashView.routeName,
     );
   }
 }
