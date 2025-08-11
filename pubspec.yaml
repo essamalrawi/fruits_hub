@@ -7,9 +7,11 @@ environment:
   sdk: ^3.8.1
 
 dependencies:
+  dots_indicator: ^4.0.1
   flutter:
     sdk: flutter
   flutter_svg: ^2.2.0
+  shared_preferences: ^2.5.3
   
 
 dev_dependencies:
