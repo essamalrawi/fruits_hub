@@ -43,3 +43,13 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
+# firebase configs files
+android/app/google-services.json
+android/app/src/main/res/values/strings.xml
+ios/Runner/GoogleService-Info.plist
+
+
+
+lib/core/utils/app_keys.dart

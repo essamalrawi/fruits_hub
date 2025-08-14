@@ -1,1 +1,6 @@
 include: package:flutter_lints/flutter.yaml
+
+# Enable additional lints here
+linter:
+  rules:
+    - prefer_const_constructors

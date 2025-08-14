@@ -9,6 +9,7 @@ class OnBoardingPageview extends StatelessWidget {
   const OnBoardingPageview({super.key, required this.pageController});
 
   final PageController pageController;
+
   @override
   Widget build(BuildContext context) {
     return PageView(
@@ -24,18 +25,21 @@ class OnBoardingPageview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
+                'مرحبًا بك في',
+                style: TextStyles.bold23.copyWith(fontFamily: 'Cairo'),
+              ),
+              Text(
+                '   HUB',
+                style: TextStyles.bold23.copyWith(
+                  color: AppColors.secondaryColor,
+                ),
+              ),
+              Text(
                 'Fruit',
                 style: TextStyles.bold23.copyWith(
                   color: AppColors.primaryColor,
                 ),
               ),
-              Text(
-                'HUB',
-                style: TextStyles.bold23.copyWith(
-                  color: AppColors.secondaryColor,
-                ),
-              ),
-              const Text('  مرحبًا بك في', style: TextStyles.bold23),
             ],
           ),
         ),
