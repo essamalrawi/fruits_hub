@@ -1,10 +1,14 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
 import '../../../../../core/utils/app_colors.dart';
 import '../../../../../core/utils/app_text_styles.dart';
+import '../signup_view.dart';
 
 class HaveAnAccountWidget extends StatelessWidget {
-  const HaveAnAccountWidget({super.key});
+  const HaveAnAccountWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +33,8 @@ class HaveAnAccountWidget extends StatelessWidget {
                 Navigator.pop(context);
               },
             text: 'تسجيل الدخول',
-            style: TextStyles.semiBold16.copyWith(
-              color: AppColors.primaryColor,
-            ),
+            style:
+                TextStyles.semiBold16.copyWith(color: AppColors.primaryColor),
           ),
         ],
       ),
