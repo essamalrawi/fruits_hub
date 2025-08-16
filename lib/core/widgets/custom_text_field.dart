@@ -1,31 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fruits_hub/core/utils/app_text_styles.dart';
 
-import '../utils/app_text_styles.dart';
-
-class CustomTextField extends StatelessWidget {
-  const CustomTextField({
-    super.key,
-    required this.hint,
-    required this.keyboardType,
-    this.icon,
-  });
-
-  final Widget? icon;
-  final TextInputType keyboardType;
-  final String hint;
-
+class CustomTextFormField extends StatelessWidget {
+  const CustomTextFormField(
+      {super.key,
+      required this.hintText,
+      required this.textInputType,
+      this.suffixIcon});
+  final String hintText;
+  final TextInputType textInputType;
+  final Widget? suffixIcon;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      keyboardType: keyboardType,
+      keyboardType: textInputType,
       decoration: InputDecoration(
-        suffixIcon: icon,
-        hint: Text(
-          hint,
-          style: TextStyles.bold13.copyWith(color: const Color(0xFF949D9E)),
+        suffixIcon: suffixIcon,
+        hintStyle: TextStyles.bold13.copyWith(
+          color: const Color(0xFF949D9E),
         ),
+        hintText: hintText,
         filled: true,
-        fillColor: const Color(0xfff9fafa),
+        fillColor: const Color(0xFFF9FAFA),
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(),
@@ -36,7 +33,10 @@ class CustomTextField extends StatelessWidget {
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
       borderRadius: BorderRadius.circular(4),
-      borderSide: const BorderSide(color: Color(0xffE6E9E9), width: 1),
+      borderSide: const BorderSide(
+        width: 1,
+        color: Color(0xFFE6E9E9),
+      ),
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fruits_hub/constants/assets.dart';
+import 'package:fruits_hub/core/utils/app_images.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/widgets/page_view_item.dart';
 
 import '../../../../../core/utils/app_colors.dart';
@@ -9,7 +9,6 @@ class OnBoardingPageview extends StatelessWidget {
   const OnBoardingPageview({super.key, required this.pageController});
 
   final PageController pageController;
-
   @override
   Widget build(BuildContext context) {
     return PageView(
@@ -24,12 +23,12 @@ class OnBoardingPageview extends StatelessWidget {
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'مرحبًا بك في',
-                style: TextStyles.bold23.copyWith(fontFamily: 'Cairo'),
+                style: TextStyles.bold23,
               ),
               Text(
-                '   HUB',
+                '  HUB',
                 style: TextStyles.bold23.copyWith(
                   color: AppColors.secondaryColor,
                 ),
@@ -60,7 +59,7 @@ class OnBoardingPageview extends StatelessWidget {
               height: 0,
             ),
           ),
-        ),
+        )
       ],
     );
   }
