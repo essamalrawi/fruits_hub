@@ -15,6 +15,7 @@ dependencies:
   flutter_svg: ^2.2.0
   shared_preferences: ^2.5.3
   firebase_core: ^4.0.0
+  dartz: ^0.10.1
   
 
 dev_dependencies:
