@@ -26,7 +26,6 @@ class _PasswordFieldState extends State<PasswordField> {
           print(obscureText);
           setState(() {});
         },
-
         child: Icon(
           obscureText ? Icons.remove_red_eye : Icons.visibility_off,
           color: const Color(0xffC9CECF),
