@@ -5,6 +5,7 @@ class FirebaseAuthService {
   Future<User> createUserWithEmailAndPassword({
     required String email,
     required String password,
+    required String name,
   }) async {
     try {
       final credential = await FirebaseAuth.instance
