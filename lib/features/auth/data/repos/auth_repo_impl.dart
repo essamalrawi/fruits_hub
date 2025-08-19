@@ -9,9 +9,9 @@ import 'package:fruits_hub/features/auth/domain/entites/user_entity.dart';
 import 'package:fruits_hub/features/auth/domain/repos/auth_repo.dart';
 
 class AuthRepoImpl extends AuthRepo {
-  final FirebaseAuthService firebaseAuthException;
+  final FirebaseAuthService firebaseAuthService;
 
-  AuthRepoImpl({required this.firebaseAuthException});
+  AuthRepoImpl({required this.firebaseAuthService});
 
   @override
   Future<Either<Faluire, UserEntity>> CreateUserWithEmailAndPassword(
@@ -20,7 +20,7 @@ class AuthRepoImpl extends AuthRepo {
     String name,
   ) async {
     try {
-      var user = await firebaseAuthException.createUserWithEmailAndPassword(
+      var user = await firebaseAuthService.createUserWithEmailAndPassword(
         email: email,
         password: password,
         name: name,
@@ -29,6 +29,25 @@ class AuthRepoImpl extends AuthRepo {
     } on CustomException catch (e) {
       log('Exception in CreateUserWithEmailAndPassword: ${e.toString()}');
 
+      return Left(ServerFaluire(e.message));
+    } catch (e) {
+      return Left(ServerFaluire("حدث خطأ. يرجى المحاولة مرة أخرى لاحقًا."));
+    }
+  }
+
+  @override
+  Future<Either<Faluire, UserEntity>> signInWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
+    try {
+      var user = await firebaseAuthService.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return Right(UserModel.fromFirebaseUser(user));
+    } on CustomException catch (e) {
+      log('Exception in signInWithEmailAndPassword: ${e.toString()}');
       return Left(ServerFaluire(e.message));
     } catch (e) {
       return Left(ServerFaluire("حدث خطأ. يرجى المحاولة مرة أخرى لاحقًا."));
