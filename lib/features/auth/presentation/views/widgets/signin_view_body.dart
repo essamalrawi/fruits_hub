@@ -10,29 +10,23 @@ import 'package:fruits_hub/features/auth/presentation/views/widgets/social_login
 
 import 'dont_have_account_widget.dart';
 
-class LoginViewBody extends StatelessWidget {
-  const LoginViewBody({super.key});
+class SigninViewBody extends StatelessWidget {
+  const SigninViewBody({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: kHorizintalPadding,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: kHorizintalPadding),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(
-                height: 24,
-              ),
+              const SizedBox(height: 24),
               const CustomTextFormField(
                 hintText: 'البريد الالكتروني',
                 textInputType: TextInputType.emailAddress,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               const CustomTextFormField(
                 suffixIcon: Icon(
                   Icons.remove_red_eye,
@@ -41,9 +35,7 @@ class LoginViewBody extends StatelessWidget {
                 hintText: 'كلمة المرور',
                 textInputType: TextInputType.visiblePassword,
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
@@ -55,40 +47,25 @@ class LoginViewBody extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 33,
-              ),
-              CustomButton(
-                onPressed: () {},
-                text: 'تسجيل دخول',
-              ),
-              const SizedBox(
-                height: 33,
-              ),
+              const SizedBox(height: 33),
+              CustomButton(onPressed: () {}, text: 'تسجيل دخول'),
+              const SizedBox(height: 33),
               const DontHaveAnAccountWidget(),
-              const SizedBox(
-                height: 33,
-              ),
+              const SizedBox(height: 33),
               const OrDivider(),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.imagesGoogleIcon,
                 title: 'تسجيل بواسطة جوجل',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.imagesApplIcon,
                 title: 'تسجيل بواسطة أبل',
               ),
-              const SizedBox(
-                height: 16,
-              ),
+              const SizedBox(height: 16),
               SocialLoginButton(
                 onPressed: () {},
                 image: Assets.imagesFacebookIcon,

@@ -8,7 +8,7 @@ import 'package:fruits_hub/core/utils/app_colors.dart';
 import 'package:fruits_hub/core/widgets/custom_button.dart';
 import 'package:fruits_hub/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
 
-import '../../../../auth/presentation/views/login_view.dart';
+import '../../../../auth/presentation/views/signin_view.dart';
 
 class OnBoardingViewBody extends StatefulWidget {
   const OnBoardingViewBody({super.key});
@@ -21,6 +21,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   late PageController pageController;
 
   var currentPage = 0;
+
   @override
   void initState() {
     pageController = PageController();
@@ -42,11 +43,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Expanded(
-          child: OnBoardingPageview(
-            pageController: pageController,
-          ),
-        ),
+        Expanded(child: OnBoardingPageview(pageController: pageController)),
         DotsIndicator(
           dotsCount: 2,
           decorator: DotsDecorator(
@@ -56,32 +53,26 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                 : AppColors.primaryColor.withOpacity(.5),
           ),
         ),
-        const SizedBox(
-          height: 29,
-        ),
+        const SizedBox(height: 29),
         Visibility(
           visible: currentPage == 1 ? true : false,
           maintainSize: true,
           maintainAnimation: true,
           maintainState: true,
           child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: kHorizintalPadding,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizintalPadding),
             child: CustomButton(
               onPressed: () {
                 Prefs.setBool(kIsOnBoardingViewSeen, true);
-                Navigator.of(context).pushReplacementNamed(
-                  LoginView.routeName,
-                );
+                Navigator.of(
+                  context,
+                ).pushReplacementNamed(SigninView.routeName);
               },
               text: 'ابدأ الان',
             ),
           ),
         ),
-        const SizedBox(
-          height: 43,
-        ),
+        const SizedBox(height: 43),
       ],
     );
   }
