@@ -20,6 +20,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   get_it: ^8.2.0
   modal_progress_hud_nsn: ^0.5.1
+  google_sign_in: ^7.1.1
   
 
 dev_dependencies:
