@@ -64,6 +64,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '266551094903',
     projectId: 'fruitshub-fef24',
     storageBucket: 'fruitshub-fef24.firebasestorage.app',
+    androidClientId: '266551094903-2ornk532mm6opmp5vda69tj6r384bdsf.apps.googleusercontent.com',
+    iosClientId: '266551094903-ckp3l3p4mk25a6f1i1l79o6f6nj448k4.apps.googleusercontent.com',
     iosBundleId: 'com.example.fruitsHub',
   );
 
@@ -73,6 +75,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '266551094903',
     projectId: 'fruitshub-fef24',
     storageBucket: 'fruitshub-fef24.firebasestorage.app',
+    androidClientId: '266551094903-2ornk532mm6opmp5vda69tj6r384bdsf.apps.googleusercontent.com',
+    iosClientId: '266551094903-ckp3l3p4mk25a6f1i1l79o6f6nj448k4.apps.googleusercontent.com',
     iosBundleId: 'com.example.fruitsHub',
   );
 
@@ -85,4 +89,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'fruitshub-fef24.firebasestorage.app',
     measurementId: 'G-Z2GX34KCVH',
   );
+
 }
