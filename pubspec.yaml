@@ -22,6 +22,7 @@ dependencies:
   modal_progress_hud_nsn: ^0.5.1
   google_sign_in: ^6.2.1
   flutter_facebook_auth: ^7.1.2
+  cloud_firestore: ^6.0.0
  
 
 

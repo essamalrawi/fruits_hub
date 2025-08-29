@@ -15,7 +15,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = CustomBlocObserver();
   await Prefs.init();
-  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   setupGetIt();
   runApp(const FruitHub());
