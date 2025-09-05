@@ -6,8 +6,8 @@ import 'package:fruits_hub/features/home/presentation/views/home_view.dart';
 import '../../../../../core/widgets/custom_progress_hud.dart';
 import '../../cubits/signin_cubit/signin_cubit.dart';
 
-class SigninViewBlocConsumer extends StatelessWidget {
-  const SigninViewBlocConsumer({super.key});
+class SignInViewBlocConsumer extends StatelessWidget {
+  const SignInViewBlocConsumer({super.key});
 
   @override
   Widget build(BuildContext context) {
