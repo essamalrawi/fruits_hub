@@ -60,7 +60,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
           maintainAnimation: true,
           maintainState: true,
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kHorizintalPadding),
+            padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
             child: CustomButton(
               onPressed: () {
                 Prefs.setBool(kIsOnBoardingViewSeen, true);

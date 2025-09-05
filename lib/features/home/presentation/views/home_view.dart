@@ -9,6 +9,6 @@ class HomeView extends StatelessWidget {
 
     print("Is this working?");
 
-    return const Scaffold(body: HomeViewBody());
+    return const Scaffold(body: SafeArea(child: HomeViewBody()));
   }
 }

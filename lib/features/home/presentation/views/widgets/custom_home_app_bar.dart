@@ -17,7 +17,7 @@ class CustomHomeAppBar extends StatelessWidget {
           shape: OvalBorder(),
         ),
       ),
-      leading: SvgPicture.asset(Assets.imagesProfileImage),
+      leading: Image.asset(Assets.imagesProfileImage),
       title: Text(
         'صباح الخير !..',
         textAlign: TextAlign.right,

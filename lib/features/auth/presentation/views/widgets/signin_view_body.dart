@@ -32,7 +32,7 @@ class _SigninViewBodyState extends State<SigninViewBody> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: kHorizintalPadding),
+        padding: const EdgeInsets.symmetric(horizontal: kHorizontalPadding),
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
